@@ -1250,7 +1250,10 @@ func (s *Server) ListenAndServe(addr string) error {
 	}
 	if s.TCPKeepalive {
 		if tcpln, ok := ln.(*net.TCPListener); ok {
-			return s.Serve(tcpKeepAliveListener{TCPListener: tcpln, keepAlivePeriod: s.TCPKeepalivePeriod})
+			return s.Serve(tcpKeepAliveListener{
+				TCPListener:     tcpln,
+				keepAlivePeriod: s.TCPKeepalivePeriod,
+			})
 		}
 	}
 	return s.Serve(ln)
@@ -1293,7 +1296,10 @@ func (s *Server) ListenAndServeTLS(addr, certFile, keyFile string) error {
 	}
 	if s.TCPKeepalive {
 		if tcpln, ok := ln.(*net.TCPListener); ok {
-			return s.ServeTLS(tcpKeepAliveListener{TCPListener: tcpln, keepAlivePeriod: s.TCPKeepalivePeriod}, certFile, keyFile)
+			return s.ServeTLS(tcpKeepAliveListener{
+				TCPListener:     tcpln,
+				keepAlivePeriod: s.TCPKeepalivePeriod,
+			}, certFile, keyFile)
 		}
 	}
 	return s.ServeTLS(ln, certFile, keyFile)
@@ -1317,7 +1323,10 @@ func (s *Server) ListenAndServeTLSEmbed(addr string, certData, keyData []byte) e
 	}
 	if s.TCPKeepalive {
 		if tcpln, ok := ln.(*net.TCPListener); ok {
-			return s.ServeTLSEmbed(tcpKeepAliveListener{TCPListener: tcpln, keepAlivePeriod: s.TCPKeepalivePeriod}, certData, keyData)
+			return s.ServeTLSEmbed(tcpKeepAliveListener{
+				TCPListener:     tcpln,
+				keepAlivePeriod: s.TCPKeepalivePeriod,
+			}, certData, keyData)
 		}
 	}
 	return s.ServeTLSEmbed(ln, certData, keyData)
